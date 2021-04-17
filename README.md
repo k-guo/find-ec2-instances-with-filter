@@ -14,4 +14,6 @@ aws configure
 
 ### Script Usage
 
-Run python3 find-instances-with-tag-filter.py
+Run:
+
+python3 find-instances-with-tag-filter.py

@@ -22,14 +22,8 @@ regions = ['ap-southeast-1', 'ap-southeast-2', 'eu-central-1', 'us-east-1', 'us-
 
 # Set up global variables, the include_filter is used with the function get_region_instances_include_filter
 # The exluce filter is used with get_region_instances_no_owner_tag
-include_filter = [{
-	'Name': 'tag:Owner',
-	'Values': ['kguo',]
-    },
-#	{
-#	'Name': 'instance-state-name',
-#	'Values': ['running',]
-#	}
+include_filter = [{'Name': 'tag:Owner', 'Values': ['kguo',]},
+#	{'Name': 'instance-state-name','Values': ['running',]}
 	]
 
 exclude_filter = ['Owner', 'owner']
@@ -91,7 +85,6 @@ def get_region_instances_no_owner_tag(region):
 	try:
 		ec2 = session.resource('ec2')
 		instances = ec2.instances.all()
-
 		instances_result = []
 
 		for instance in instances:
@@ -122,7 +115,7 @@ def get_region_instances_include_filter(region):
 		instances_result = ec2.instances.filter(Filters=include_filter)
 
 	except ClientError as e:
-					print(e)
+		print(e)
 	return instances_result
 
 # Write the results to a CSV file

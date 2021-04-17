@@ -1,8 +1,13 @@
+'''
+This script fetches all EC2 instances with a user define filter. It also include 
+a function to collect all EC2 instances with no "Owner" tag. The output of the 
+results are written to a CSV file with a default name of find_instances.csv.
+'''
+
 import datetime
 import sys
 import os
 import csv
-import logging
 import boto3
 from botocore.exceptions import ClientError
 

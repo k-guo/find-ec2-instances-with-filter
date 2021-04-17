@@ -27,7 +27,7 @@ include_filter = [{
 #	}
 	]
 
-exclude_filter = "Owner"
+exclude_filter = ['Owner', 'owner']
 
 filename = "find_instances.csv"
 csv_custom_column1 = "Notes"
@@ -90,10 +90,14 @@ def get_region_instances_no_owner_tag(region):
 		instances_result = []
 
 		for instance in instances:
+			# instances with no tags are added to the output list
 			if not instance.tags:
 				instances_result.append(instance)
 			else:
-				if exclude_filter not in [t['Key'] for t in instance.tags]:
+				# if "Owner" or "owner" (exclude filter) is not in any of the tags' Keys
+				# then add the instance to the output list
+				if all((owner not in [t['Key'] for t in instance.tags]) for owner in exclude_filter):
+					# print(instance.tags)
 					instances_result.append(instance)
 
 	except ClientError as e:
@@ -116,6 +120,7 @@ def get_region_instances_include_filter(region):
 					print(e)
 	return instances_result
 
+# Write the results to a CSV file
 with open(filename, 'w') as csvfile:
     # initialize csv writer
     csvwriter = csv.writer(
@@ -129,7 +134,10 @@ with open(filename, 'w') as csvfile:
 
     for region in regions:
     	# Call the function which finds instances with the defined Filters
+    	# Or call get_region_instances_no_owner_tag(region) to 
+    	# find instances with no Owner tag
     	instances = get_region_instances_include_filter(region)
     	for instance in instances:
+    		print(instance.id)
     		instance_notes_dict = get_aws_instance_info(instance)
     		write_to_csv(instance, instance_notes_dict, region, csvwriter)

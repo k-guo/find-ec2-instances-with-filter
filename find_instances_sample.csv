@@ -1,0 +1,4 @@
+Instance ID,Instance Name,Instance Type,Region,Notes
+i-09e29fe9296f56f8e,Product-VPC-Bastion-host,t2.micro,us-east-1,Owner tag is kguo
+i-0c69f503898e9c236,tme-vyatta-v6.6r,t2.small,us-west-1,Owner tag is kguo
+i-0215da041874a198c,tme-vyos-Bastion,t2.micro,us-west-1,Owner tag is kguo
